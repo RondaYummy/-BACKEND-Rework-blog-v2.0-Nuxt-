@@ -1,11 +1,11 @@
-const Salon = require('./Posts');
+const Posts = require('./Posts');
 const User = require('./User');
 const UserToken = require('./UserToken');
-const Services = require('./Comments');
+const Comments = require('./Comments');
 
 module.exports = {
-  Salon,
+  Posts,
   User,
   UserToken,
-  Services,
+  Comments,
 };

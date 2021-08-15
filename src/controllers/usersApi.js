@@ -6,7 +6,7 @@ const currentUser = async (req, res) => {
       id,
     } = req.params;
 
-    // Отримую цілого юзера
+    // Отримую цілого юзера та усі його пости, коменти
     const user = await models.User.findOne({
       _id: id,
     }).exec();
@@ -18,7 +18,7 @@ const currentUser = async (req, res) => {
     }
     return res.status(200).json({
       message: 'Користувач був отриманий.',
-      user: user.select('-password'),
+      user,
     });
   } catch (e) {
     return res.status(500).json({

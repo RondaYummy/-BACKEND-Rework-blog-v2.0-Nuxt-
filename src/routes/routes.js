@@ -22,6 +22,18 @@ router.post('/registration', controllers.auth.signUp);
 
 // Current User
 // api/user
-router.get('/user/', controllers.usersApi.currentUser);
+router.get('/user/:id', controllers.usersApi.currentUser);
+
+// /api/user/:id/posts
+// ДОБАВИТИ НОВИЙ ПОСТ
+router.post('/user/:id/posts', controllers.posts.createNewPost);
+
+// // ОТРИМАТИ ВСІ ПОСТИ ЮЗЕРА
+// // /api/:userID/posts/
+router.get('/user/:id/posts/', controllers.posts.getAllPostsAndComments);
+
+// /api/posts/id/comments
+// Добавлення нового коментаря до поста
+router.post('/posts/:idPost/comments', controllers.commnets.createNewComment);
 
 module.exports = router;

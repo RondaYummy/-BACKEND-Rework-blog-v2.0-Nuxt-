@@ -8,13 +8,18 @@ const options = {
 };
 
 const CommentSchema = new Schema({
-  comment: {
+  description: {
     type: String,
     required: true,
   },
   whoPosted: {
     ref: 'User',
     type: String,
+  },
+  user: {
+    ref: 'User',
+    type: String,
+    required: true,
   },
 }, options);
 

@@ -8,23 +8,23 @@ const options = {
 };
 
 const PostSchema = new Schema({
-  name: {
+  description: {
     type: String,
     required: true,
-    unique: true,
   },
-  whoPosted: [{
+  whoPosted: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true,
-  }],
+  },
+  user: {
+    ref: 'User',
+    type: String,
+    required: true,
+  },
   comments: [{
     type: Schema.Types.ObjectId,
     ref: 'Comments',
-  }],
-  admin: [{
-    type: Schema.Types.ObjectId,
-    ref: 'User',
   }],
 }, options);
 

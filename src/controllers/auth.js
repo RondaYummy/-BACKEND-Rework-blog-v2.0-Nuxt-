@@ -49,9 +49,9 @@ const signIn = async (req, res) => {
     const updatedToken = await updateTokens(user._id);
     console.log('updatedToken', updatedToken);
 
-    res.cookie('token', updatedToken, {
-      // secure: true, // SSL, HTTPS
-    });
+    // res.cookie('token', updatedToken, {
+    //   // secure: true, // SSL, HTTPS
+    // });
 
     if (updatedToken) {
       res.json({
@@ -111,7 +111,6 @@ const signUp = async (req, res) => {
     // Валідацію провіряти!!!
     const {
       email,
-      password,
       firstName,
       lastName,
       gender,
@@ -138,7 +137,7 @@ const signUp = async (req, res) => {
       });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 12);
+    const hashedPassword = await bcrypt.hash(req.body.password, 12);
     const user = new models.User({
       email,
       password: hashedPassword,
