@@ -35,7 +35,6 @@ module.exports = (host, port) => new Promise((res, rej) => {
     return res(app);
   });
 
-  // FIXME не працює мідлвар для токенів ( заголовків )
   app.use(expressJWT({
     secret: config.jwt.secret,
     algorithms: ['HS256'],
@@ -50,6 +49,7 @@ module.exports = (host, port) => new Promise((res, rej) => {
       return null;
     },
   }));
+  // TODO це взагалі потрібно ^^^ вище?
   app.use('/api', routes);
 
   app.use((req, resp, next) => {

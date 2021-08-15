@@ -3,7 +3,7 @@ const {
 } = require('express');
 
 const router = Router();
-
+const auth = require('../middleware/auth');
 const controllers = require('../controllers/index');
 
 // Auth
@@ -22,26 +22,26 @@ router.post('/registration', controllers.auth.signUp);
 
 // Current User
 // api/user
-router.get('/user/:id', controllers.usersApi.currentUser);
+router.get('/user/:id', auth, controllers.usersApi.currentUser);
 
 // /api/user/:id/posts
 // ДОБАВИТИ НОВИЙ ПОСТ
-router.post('/user/:id/posts', controllers.posts.createNewPost);
+router.post('/user/:id/posts', auth, controllers.posts.createNewPost);
 
 // // ОТРИМАТИ ВСІ ПОСТИ ЮЗЕРА
 // // /api/:userID/posts/
-router.get('/user/:id/posts/', controllers.posts.getAllPostsAndComments);
+router.get('/user/:id/posts/', auth, controllers.posts.getAllPostsAndComments);
 
 // /api/posts/id/comments
 // ДОДАТИ НОВИЙ КОМЕНТ ДО ПОСТА
-router.post('/posts/:idPost/comments', controllers.commnets.createNewComment);
+router.post('/posts/:idPost/comments', auth, controllers.commnets.createNewComment);
 
 // /api/friends/:id
 // ДОБАВИТИ КОРИСТУВАЧА В ДРУЗІ
-router.post('/friends/:id', controllers.friends.addFriend);
+router.post('/friends/:id', auth, controllers.friends.addFriend);
 
 // /api/friends/id
 // ВИВЕСТИ УСІХ ДРУЗІВ КОРИСТУВАЧА
-router.get('/friends/:id', controllers.friends.getUserFriends);
+router.get('/friends/:id', auth, controllers.friends.getUserFriends);
 
 module.exports = router;

@@ -40,13 +40,15 @@ const generateRefreshToken = () => {
     token: jwt.sign(payload, secret, options),
   };
 };
-const replaceDbRefreshToken = async (tokenId, userId) => {
+const replaceDbRefreshToken = async (tokenId, userId, accessToken, refreshToken) => {
   await UserToken.findOneAndRemove({
     user: userId,
   }).exec();
   await UserToken.create({
     tokenId,
     user: userId,
+    token: accessToken,
+    refreshToken: refreshToken.token,
   });
 };
 

@@ -11,7 +11,7 @@ const models = require('../models/index');
 const updateTokens = (userId) => {
   const accessToken = authhelper.generateAccesToken(userId);
   const refreshToken = authhelper.generateRefreshToken();
-  return authhelper.replaceDbRefreshToken(refreshToken.id, userId)
+  return authhelper.replaceDbRefreshToken(refreshToken.id, userId, accessToken, refreshToken)
     .then(() => ({
       accessToken,
       refreshToken: refreshToken.token,
@@ -55,7 +55,7 @@ const signIn = async (req, res) => {
 
     if (updatedToken) {
       res.json({
-        // updatedToken,
+        updatedToken,
         user,
       });
     }

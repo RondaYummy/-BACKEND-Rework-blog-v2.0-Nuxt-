@@ -14,6 +14,7 @@ const UserToken = new Schema({
   },
   token: {
     type: String,
+    required: true,
   },
   refreshToken: {
     type: String,
