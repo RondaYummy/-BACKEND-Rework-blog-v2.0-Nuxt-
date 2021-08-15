@@ -33,7 +33,15 @@ router.post('/user/:id/posts', controllers.posts.createNewPost);
 router.get('/user/:id/posts/', controllers.posts.getAllPostsAndComments);
 
 // /api/posts/id/comments
-// Добавлення нового коментаря до поста
+// ДОДАТИ НОВИЙ КОМЕНТ ДО ПОСТА
 router.post('/posts/:idPost/comments', controllers.commnets.createNewComment);
+
+// /api/friends/:id
+// ДОБАВИТИ КОРИСТУВАЧА В ДРУЗІ
+router.post('/friends/:id', controllers.friends.addFriend);
+
+// /api/friends/id
+// ВИВЕСТИ УСІХ ДРУЗІВ КОРИСТУВАЧА
+router.get('/friends/:id', controllers.friends.getUserFriends);
 
 module.exports = router;

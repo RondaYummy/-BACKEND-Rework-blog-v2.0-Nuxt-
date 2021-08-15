@@ -3,6 +3,7 @@ const logout = require('./logout');
 const usersApi = require('./usersApi');
 const posts = require('./posts');
 const commnets = require('./comments');
+const friends = require('./friends');
 
 module.exports = {
   auth,
@@ -10,4 +11,5 @@ module.exports = {
   usersApi,
   posts,
   commnets,
+  friends,
 };
