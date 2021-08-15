@@ -54,10 +54,14 @@ const UserSchema = new Schema({
     enum: ['true'],
     required: true,
   },
+  friends: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  }],
   role: {
     type: String,
-    enum: ['admin', 'master', 'client', 'globalAdmin'],
-    default: 'client',
+    enum: ['admin', 'user'],
+    default: 'user',
   },
 }, options);
 
@@ -67,35 +71,6 @@ UserSchema.virtual('fullName').get(function getFullName() {
 
 const User = model('User', UserSchema);
 
-const MasterUser = User.discriminator('Master',
-  new Schema({
-    photoWorks: [{
-      type: String,
-    }],
-    salon: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Salon',
-    }],
-    certificates: {
-      type: [{
-        type: String, // Фотографії сертифікатів майстра, якщо вони є.
-      }],
-    },
-  },
-  options));
-
-const AdminUser = User.discriminator('Admin',
-  new Schema({
-    // Обєкт з даними про салони, які закріплені за цим адміном
-    salons: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Salon',
-    }],
-  },
-  options));
-
-User.MasterUser = MasterUser;
-User.AdminUser = AdminUser;
 User.User = User;
 
 module.exports = User;

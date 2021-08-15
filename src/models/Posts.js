@@ -7,15 +7,20 @@ const options = {
   timestamps: true,
 };
 
-const SalonSchema = new Schema({
+const PostSchema = new Schema({
   name: {
     type: String,
     required: true,
     unique: true,
   },
-  masters: [{
+  whoPosted: [{
     type: Schema.Types.ObjectId,
     ref: 'User',
+    required: true,
+  }],
+  comments: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Comments',
   }],
   admin: [{
     type: Schema.Types.ObjectId,
@@ -23,4 +28,4 @@ const SalonSchema = new Schema({
   }],
 }, options);
 
-module.exports = model('Salon', SalonSchema);
+module.exports = model('Posts', PostSchema);

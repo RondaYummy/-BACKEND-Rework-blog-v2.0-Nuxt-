@@ -1,7 +1,7 @@
-const Salon = require('./Salon');
+const Salon = require('./Posts');
 const User = require('./User');
 const UserToken = require('./UserToken');
-const Services = require('./Services');
+const Services = require('./Comments');
 
 module.exports = {
   Salon,
