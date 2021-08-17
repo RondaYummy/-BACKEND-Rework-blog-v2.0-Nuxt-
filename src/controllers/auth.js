@@ -23,7 +23,6 @@ const signIn = async (req, res) => {
     email,
     password,
   } = req.body;
-
   const user = await models.User.findOne({
     email,
   }).select('+password').exec();

@@ -4,6 +4,7 @@ const cors = require('cors');
 const expressJWT = require('express-jwt');
 const config = require('../../config/development.json');
 const routes = require('../routes/routes');
+
 /**
  * @param {String} host
  * @param {String|Number}port
@@ -48,8 +49,19 @@ module.exports = (host, port) => new Promise((res, rej) => {
       }
       return null;
     },
+  }).unless({
+    path: ['/api/signin', '/registration'],
   }));
-  // TODO це взагалі потрібно ^^^ вище?
+
+  app.use((err, req, resolve, next) => {
+    if (err.name === 'UnauthorizedError') {
+      resolve.status(401).json({
+        error: `${err.name}: ${err.message}`,
+      });
+    }
+    next();
+  });
+  // TODO працює код вище але чи треба
   app.use('/api', routes);
 
   app.use((req, resp, next) => {

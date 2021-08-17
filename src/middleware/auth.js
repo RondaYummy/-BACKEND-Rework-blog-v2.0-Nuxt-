@@ -13,36 +13,27 @@ module.exports = async (req, res, next) => {
     return;
   }
 
+  // if (!req.user.admin) res.sendStatus(402);
   const token = authHeader.replace('Bearer ', '');
 
   const tokensDb = await models.UserToken.findOne({
     user: req.user.userId,
+    // TODO помилка userId невідомий якщо користувач не авторизований, коректно?
   }).exec();
-  if (token === tokensDb.token) {
-    console.log('Acces Allowed!');
-  } else {
+
+  if (token !== tokensDb.token) {
+    res.status(401).json({
+      message: 'Invalid access DB token!',
+    });
+    return;
+  }
+  const payload = jwt.verify(token, secret);
+
+  if (payload.type !== 'access') {
     res.status(401).json({
       message: 'Invalid access token!',
     });
+    return;
   }
-  // TODO зробити провірку валідності токена
-  try {
-    const payload = jwt.verify(token, secret);
-    if (payload.type !== 'access') {
-      res.status(401).json({
-        message: 'Invalid access token!',
-      });
-    }
-    next();
-  } catch (e) {
-    if (e instanceof jwt.TokenExpiredError) {
-      res.status(400).json({
-        message: 'Token experied!',
-      });
-    } else if (e instanceof jwt.JsonWebTokenError) {
-      res.status(400).json({
-        message: 'invalid token!',
-      });
-    }
-  }
+  next();
 };

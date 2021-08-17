@@ -14,7 +14,7 @@ router.post('/refresh-tokens', controllers.auth.refreshTokens);
 
 // Logout / Disconnect
 // /api/logout
-router.post('/logout', controllers.logout.disconnect);
+router.post('/logout', auth, controllers.logout.disconnect);
 
 // Registration
 // /api/registration
@@ -30,6 +30,7 @@ router.post('/user/:id/posts', auth, controllers.posts.createNewPost);
 
 // // ОТРИМАТИ ВСІ ПОСТИ ЮЗЕРА
 // // /api/:userID/posts/
+// TODO забрав мідлвар аутх
 router.get('/user/:id/posts/', auth, controllers.posts.getAllPostsAndComments);
 
 // /api/posts/id/comments
