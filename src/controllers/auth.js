@@ -26,7 +26,6 @@ const signIn = async (req, res) => {
   const user = await models.User.findOne({
     email,
   }).select('+password').exec();
-
   if (!user) {
     res.status(401).json({
       message: 'AuthError',
@@ -48,9 +47,10 @@ const signIn = async (req, res) => {
     const updatedToken = await updateTokens(user._id);
     console.log('updatedToken', updatedToken);
 
-    // res.cookie('token', updatedToken, {
-    //   // secure: true, // SSL, HTTPS
-    // });
+    res.cookie('tokens', updatedToken, {
+      maxAge: 3600 * 24,
+      httpOnly: true,
+    });
 
     if (updatedToken) {
       res.json({

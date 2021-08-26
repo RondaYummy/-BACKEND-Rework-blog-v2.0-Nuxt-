@@ -5,7 +5,6 @@ const currentUser = async (req, res) => {
     const {
       id,
     } = req.params;
-
     // Отримую цілого юзера та усі його пости, коменти
     const user = await models.User.findOne({
       _id: id,

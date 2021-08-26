@@ -66,11 +66,9 @@ const UserSchema = new Schema({
 }, options);
 
 UserSchema.virtual('fullName').get(function getFullName() {
-  return `${this.lastName} ${this.firstName} ${this.middleName || ''}`.trim();
+  return `${this.lastName} ${this.firstName}`.trim();
 });
 
 const User = model('User', UserSchema);
-
-User.User = User;
 
 module.exports = User;

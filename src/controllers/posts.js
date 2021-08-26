@@ -10,6 +10,8 @@ const getAllPostsAndComments = async (req, res) => {
     const allPosts = await models.Posts.find({
       user: id,
     }).populate('comments')
+      .populate('whoPosted')
+      .populate('user')
       .exec();
 
     return res.status(201).json({
@@ -40,14 +42,21 @@ const createNewPost = async (req, res) => {
       whoPosted: req.user.userId,
     });
 
+    const currentAddedPost = posts._id;
     await posts.save();
+
+    const currentPost = await models.Posts.findOne({
+      _id: currentAddedPost,
+    }).populate('comments')
+      .populate('whoPosted')
+      .populate('user')
+      .exec();
 
     return res.status(201).json({
       message: 'Пост був добавлений на стіну користувача.',
-      data: posts,
+      data: currentPost,
     });
   } catch (e) {
-    console.log(e);
     return res.status(500).json({
       message: 'Щось пішло не так, попробуйте ще раз.',
     });

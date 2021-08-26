@@ -2,11 +2,11 @@ const models = require('../models/index');
 
 const disconnect = async (req, res) => {
   const {
-    userId,
+    id,
   } = await req.body;
-
+  console.log(id);
   await models.UserToken.findOneAndRemove({
-    user: userId,
+    user: id,
   }).exec();
 
   res.status(200).json({

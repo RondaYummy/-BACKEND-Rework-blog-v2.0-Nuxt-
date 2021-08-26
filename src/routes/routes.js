@@ -14,7 +14,7 @@ router.post('/refresh-tokens', controllers.auth.refreshTokens);
 
 // Logout / Disconnect
 // /api/logout
-router.post('/logout', auth, controllers.logout.disconnect);
+router.post('/logout', controllers.logout.disconnect);
 
 // Registration
 // /api/registration
