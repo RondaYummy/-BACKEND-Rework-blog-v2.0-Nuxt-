@@ -30,7 +30,7 @@ router.post('/user/:id/posts', auth, controllers.posts.createNewPost);
 
 // // ОТРИМАТИ ВСІ ПОСТИ ЮЗЕРА
 // // /api/:userID/posts/
-// TODO забрав мідлвар аутх
+// TODO забрав мідлвар auth
 router.get('/user/:id/posts/', auth, controllers.posts.getAllPostsAndComments);
 
 // /api/posts/id/comments
@@ -44,5 +44,9 @@ router.post('/friends/:id', auth, controllers.friends.addFriend);
 // /api/friends/id
 // ВИВЕСТИ УСІХ ДРУЗІВ КОРИСТУВАЧА
 router.get('/friends/:id', auth, controllers.friends.getUserFriends);
+
+// Пошук користувачів
+// /api/user/search/:searchValue
+router.get('/search/:searchValue', controllers.searchUsers.searchUsers);
 
 module.exports = router;

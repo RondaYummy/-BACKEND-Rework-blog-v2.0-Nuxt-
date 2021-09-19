@@ -4,6 +4,7 @@ const usersApi = require('./usersApi');
 const posts = require('./posts');
 const commnets = require('./comments');
 const friends = require('./friends');
+const searchUsers = require('./searchUsers');
 
 module.exports = {
   auth,
@@ -12,4 +13,5 @@ module.exports = {
   posts,
   commnets,
   friends,
+  searchUsers,
 };

@@ -1,6 +1,6 @@
 {
   "db": {
-    "uri": "mongodb://localhost:27017/nails_project"
+    "uri": "mongodb://localhost:27017/blog_project_reworked"
   },
   "server": {
     "host": "localhost",
