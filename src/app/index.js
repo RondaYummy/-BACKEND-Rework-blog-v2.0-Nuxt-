@@ -69,7 +69,7 @@ module.exports = (host, port) => new Promise((res, rej) => {
       return next();
     }
 
-    if (['/api/signin', '/api/register'].some((v) => req.url.includes(v))
+    if (['/api/signin', '/api/register', '/api/user/search/'].some((v) => req.url.includes(v))
       || !req.url.includes('/api/')
     ) {
       return next();

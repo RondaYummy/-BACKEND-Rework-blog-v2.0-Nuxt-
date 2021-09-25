@@ -46,7 +46,7 @@ router.post('/friends/:id', auth, controllers.friends.addFriend);
 router.get('/friends/:id', auth, controllers.friends.getUserFriends);
 
 // Пошук користувачів
-// /api/user/search/:searchValue
-router.get('/search/:searchValue', controllers.searchUsers.searchUsers);
+// /api/user/search/:v
+router.get('/search/:v', controllers.searchUsers.searchUsers);
 
 module.exports = router;

@@ -1,23 +1,39 @@
 const models = require('../models/index');
 
 const searchUsers = async (req, res) => {
-  // Пошук користувачів
-  // /api/user/search/:searchValue
-  try {
-    const searchText = `${req.params.searchValue}`; // or some value from request.body
-    const searchRegex = new RegExp(searchText, 'i');
-    const candidate = await models.User.find({
-      userName: searchRegex,
-    }).limit(5);
+  const searchText = `${req.params.v}`;
+  const searchRegex = new RegExp(searchText, 'i');
+
+  await models.User.find({
+    $or: [{
+        firstName: searchRegex
+      },
+      {
+        lastName: searchRegex
+      },
+      {
+        email: searchRegex
+      },
+      {
+        phone: searchRegex
+      }
+    ]
+  }).then((users) => {
+    if (users == null) res.status(404).json({
+      success: false,
+      message: 'No user found'
+    })
     res.status(200).json({
-      message: 'Користувачі були знайдені.',
-      candidate,
+      message: 'Users received',
+      users,
     });
-  } catch (e) {
+  }).catch((err) => {
     res.status(500).json({
-      message: 'Щось пішло не так, попробуйте ще раз1.',
-    });
-  }
+      success: false,
+      message: 'Encountered an error finding user',
+      error: err
+    })
+  })
 };
 
 module.exports = {

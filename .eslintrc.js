@@ -11,11 +11,18 @@ module.exports = {
 
   extends: [
     'airbnb-base',
+    'prettier'
   ],
   // add your custom rules here
   rules: {
-    'no-console': 'off',
-    'no-underscore-dangle': 0,
+    'no-console': process.env.NODE_ENV === 'production' ? 2 : 0,
+    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
+    'no-underscore-dangle': ['error', {
+      allow: ['_id'],
+      allowAfterThis: true,
+      allowAfterSuper: false,
+      enforceInMethodNames: true,
+    }],
     'import/no-unresolved': 'off',
   },
   globals: {
