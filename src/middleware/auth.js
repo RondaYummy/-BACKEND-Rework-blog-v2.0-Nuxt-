@@ -15,7 +15,6 @@ module.exports = async (req, res, next) => {
     return;
   }
 
-  // if (!req.user.admin) res.sendStatus(402);
   const token = authHeader.replace('Bearer ', '');
 
   const tokensDb = await models.UserToken.findOne({
@@ -30,7 +29,6 @@ module.exports = async (req, res, next) => {
     return;
   }
   const payload = jwt.verify(token, secret);
-
   if (payload.type !== 'access') {
     res.status(401).json({
       message: 'Invalid access token!',

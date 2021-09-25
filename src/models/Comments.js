@@ -16,11 +16,6 @@ const CommentSchema = new Schema({
     ref: 'User',
     type: String,
   },
-  // user: {
-  //   ref: 'User',
-  //   type: String,
-  //   required: true,
-  // },
 }, options);
 
 module.exports = model('Comments', CommentSchema);

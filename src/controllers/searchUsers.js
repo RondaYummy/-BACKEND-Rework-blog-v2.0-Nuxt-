@@ -11,22 +11,19 @@ const searchUsers = async (req, res) => {
       {
         lastName: searchRegex
       },
-      {
-        email: searchRegex
-      },
-      {
-        phone: searchRegex
-      }
     ]
   }).then((users) => {
-    if (users == null) res.status(404).json({
-      success: false,
-      message: 'No user found'
-    })
-    res.status(200).json({
-      message: 'Users received',
-      users,
-    });
+    if (!users) {
+      res.status(404).json({
+        message: 'No user found'
+      })
+    } else {
+      res.status(200).json({
+        message: 'Users received',
+        users,
+      });
+    }
+
   }).catch((err) => {
     res.status(500).json({
       success: false,
