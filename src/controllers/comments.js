@@ -36,7 +36,6 @@ const createNewComment = async (req, res) => {
     });
 
     currentPost.comments.push(comments._id);
-
     await comments.save();
     await currentPost.save();
 
@@ -45,7 +44,6 @@ const createNewComment = async (req, res) => {
       data: comments,
     });
   } catch (e) {
-    console.log(e);
     return res.status(500).json({
       message: 'Щось пішло не так.',
     });

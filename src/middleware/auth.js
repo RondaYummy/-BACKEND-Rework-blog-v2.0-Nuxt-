@@ -17,9 +17,12 @@ module.exports = async (req, res, next) => {
 
   const token = authHeader.replace('Bearer ', '');
 
+  if (!req.user) {
+    // TODO помилка userId невідомий якщо користувач не авторизований, коректно?
+    return;
+  }
   const tokensDb = await models.UserToken.findOne({
     user: req.user.userId,
-    // TODO помилка userId невідомий якщо користувач не авторизований, коректно?
   }).exec();
 
   if (token !== tokensDb.token) {

@@ -50,7 +50,10 @@ module.exports = (host, port) => new Promise((res, rej) => {
       return null;
     },
   }).unless({
-    path: ['/api/signin', '/api/registration', '/api/logout'],
+    path: ['/api/signin', '/api/registration', '/api/logout', {
+      url: /^\/api\/user\/.*/,
+      methods: ['GET']
+    }, ],
   }));
 
   app.use((err, req, resolve, next) => {
@@ -69,7 +72,7 @@ module.exports = (host, port) => new Promise((res, rej) => {
       return next();
     }
 
-    if (['/api/signin', '/api/register', '/api/user/search/', ].some((v) => req.url.includes(v)) ||
+    if (['/api/signin', '/api/register', ].some((v) => req.url.includes(v)) ||
       !req.url.includes('/api/')
     ) {
       return next();
