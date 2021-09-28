@@ -8,8 +8,8 @@ const getAllPostsAndComments = async (req, res) => {
     } = req.params;
 
     const allPosts = await models.Posts.find({
-      user: id,
-    }).populate('comments')
+        user: id,
+      }).populate('comments')
       .populate('whoPosted')
       .populate('user')
       .exec();
@@ -46,8 +46,8 @@ const createNewPost = async (req, res) => {
     await posts.save();
 
     const currentPost = await models.Posts.findOne({
-      _id: currentAddedPost,
-    }).populate('comments')
+        _id: currentAddedPost,
+      }).populate('comments')
       .populate('whoPosted')
       .populate('user')
       .exec();
@@ -63,7 +63,27 @@ const createNewPost = async (req, res) => {
   }
 };
 
+const delepePost = async (req, res) => {
+  try {
+    const {
+      id
+    } = req.params;
+    await models.Posts.findOneAndRemove({
+      _id: req.params.id
+    });
+    res.status(200).json({
+      message: 'Пост був видалений.',
+      postID: id,
+    });
+  } catch (e) {
+    res.status(500).json({
+      message: 'Щось пішло не так, попробуйте ще раз.'
+    });
+  };
+};
+
 module.exports = {
   getAllPostsAndComments,
   createNewPost,
+  delepePost
 };

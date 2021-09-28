@@ -50,6 +50,26 @@ const createNewComment = async (req, res) => {
   }
 };
 
+const delepeComment = async (req, res) => {
+  try {
+    const {
+      id
+    } = req.params;
+    await models.Comments.findOneAndRemove({
+      _id: req.params.id
+    });
+
+    res.status(200).json({
+      message: 'Комент був видалений.',
+      postID: id,
+    });
+  } catch (e) {
+    res.status(500).json({
+      message: 'Щось пішло не так, попробуйте ще раз.'
+    });
+  };
+};
 module.exports = {
   createNewComment,
+  delepeComment
 };

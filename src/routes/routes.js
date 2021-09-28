@@ -48,4 +48,11 @@ router.get('/friends/:id', controllers.friends.getUserFriends);
 // /api/user/search/:v
 router.get('/user/search/:v', controllers.searchUsers.searchUsers);
 
+// ВИДАЛИТИ ПОСТ
+// /api/posts/:id
+router.delete('/posts/:id', controllers.posts.delepePost);
+
+// ВИДАЛИТИ КОМЕНТ
+// /posts/:id/comment
+router.delete('/posts/:id/comment', controllers.commnets.delepeComment);
 module.exports = router;
