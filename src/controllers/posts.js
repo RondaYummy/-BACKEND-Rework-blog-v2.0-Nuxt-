@@ -9,9 +9,8 @@ const getAllPostsAndComments = async (req, res) => {
 
     const allPosts = await models.Posts.find({
         user: id,
-      }).populate('comments')
-      .populate('whoPosted')
-      .populate('user')
+      })
+      .populate(['whoPosted', 'comments', 'user'])
       .exec();
 
     return res.status(201).json({
@@ -38,7 +37,7 @@ const createNewPost = async (req, res) => {
     }
     const posts = new models.Posts({
       description,
-      user: req.params.id, // користувач якому постять коммент
+      user: req.params.id, // користувач якому постять пост
       whoPosted: req.user.userId,
     });
 

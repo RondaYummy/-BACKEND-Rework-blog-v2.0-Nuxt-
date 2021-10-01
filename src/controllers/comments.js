@@ -1,11 +1,12 @@
 const models = require('../models/index');
-const parceJwt = require('../utils/parceJwt').parseJwt;
+// const parceJwt = require('../utils/parceJwt').parseJwt;
 
 const createNewComment = async (req, res) => {
   try {
     const {
       description,
       user,
+      whoPosted
     } = await req.body;
 
     if (!description) {
@@ -26,13 +27,14 @@ const createNewComment = async (req, res) => {
         message: 'Пост не знайдено.',
       });
     }
-    // TODO Раз я провіряю в мідлварі токен, то тут уже не потрібно провіряти чи він є
-    const accesToken = req.headers.authorization.split(' ')[1];
-    const currentUserId = parceJwt(accesToken).userId;
+    // // TODO Раз я провіряю в мідлварі токен, то тут уже не потрібно провіряти чи він є
+    // const accesToken = req.headers.authorization.split(' ')[1];
+    // const currentUserId = parceJwt(accesToken).userId;
+    // console.log(currentUserId);
     const comments = new models.Comments({
       description,
       user, // користувач якому постять коммент
-      whoPosted: currentUserId, // користувач який постить комент
+      whoPosted, // користувач який постить комент
     });
 
     currentPost.comments.push(comments._id);
