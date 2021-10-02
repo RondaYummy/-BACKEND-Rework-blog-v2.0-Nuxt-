@@ -1,7 +1,7 @@
 const models = require('../models/index');
 // ОТРИМАТИ ВСІ ПОСТИ ЮЗЕРА
 // /api/:userID/posts/
-const getAllPostsAndComments = async (req, res) => {
+const getAllPosts = async (req, res) => {
   try {
     const {
       id,
@@ -10,7 +10,7 @@ const getAllPostsAndComments = async (req, res) => {
     const allPosts = await models.Posts.find({
         user: id,
       })
-      .populate(['whoPosted', 'comments', 'user'])
+      .populate(['whoPosted', 'user'])
       .exec();
 
     return res.status(201).json({
@@ -67,6 +67,7 @@ const delepePost = async (req, res) => {
     const {
       id
     } = req.params;
+    
     await models.Posts.findOneAndRemove({
       _id: req.params.id
     });
@@ -88,16 +89,20 @@ const editPost = async (req, res) => {
     const {
       description,
     } = req.body;
-    const currentID = req.params.id;
+      const currentID = req.params.id;
 
     const currentPostEdit = await models.Posts.findOne({
-      _id: currentID
-    }).exec();
+        _id: currentID
+      }).populate('comments')
+      .populate('whoPosted')
+      .populate('user')
+      .exec();
 
     currentPostEdit.description = description;
     currentPostEdit.createdAt = Date.now(); // Обновляю дату
-
     await currentPostEdit.save();
+
+
 
     res.status(201).json({
       message: 'Пости був відредагований.',
@@ -110,7 +115,7 @@ const editPost = async (req, res) => {
   };
 };
 module.exports = {
-  getAllPostsAndComments,
+  getAllPosts,
   createNewPost,
   delepePost,
   editPost,

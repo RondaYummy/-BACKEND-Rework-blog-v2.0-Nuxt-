@@ -16,6 +16,10 @@ const CommentSchema = new Schema({
     ref: 'User',
     type: String,
   },
+  postId: {
+    type: String,
+    required: true,
+  }
 }, options);
 
 module.exports = model('Comments', CommentSchema);

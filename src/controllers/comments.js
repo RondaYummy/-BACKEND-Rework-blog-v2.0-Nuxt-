@@ -15,11 +15,11 @@ const createNewComment = async (req, res) => {
       });
     }
     const {
-      idPost,
-    } = await req.params;
+      postId,
+    } = req.params;
 
     const currentPost = await models.Posts.findOne({
-      _id: idPost,
+      _id: postId,
     }).exec();
 
     if (!currentPost) {
@@ -27,14 +27,12 @@ const createNewComment = async (req, res) => {
         message: 'Пост не знайдено.',
       });
     }
-    // // TODO Раз я провіряю в мідлварі токен, то тут уже не потрібно провіряти чи він є
-    // const accesToken = req.headers.authorization.split(' ')[1];
-    // const currentUserId = parceJwt(accesToken).userId;
-    // console.log(currentUserId);
+
     const comments = new models.Comments({
       description,
       user, // користувач якому постять коммент
       whoPosted, // користувач який постить комент
+      postId
     });
 
     currentPost.comments.push(comments._id);
@@ -71,7 +69,31 @@ const delepeComment = async (req, res) => {
     });
   };
 };
+
+const getAllComments = async (req, res) => {
+  try {
+    const {
+      postId
+    } = req.params;
+
+    const allcomments = await models.Comments.find({
+        postId
+      })
+      .populate('whoPosted')
+      .exec();
+
+    return res.status(201).json({
+      message: 'Коменти були получені.',
+      data: allcomments,
+    });
+  } catch (e) {
+    return res.status(500).json({
+      message: 'Щось пішло не так, попробуйте ще раз.',
+    });
+  }
+};
 module.exports = {
   createNewComment,
-  delepeComment
+  delepeComment,
+  getAllComments
 };

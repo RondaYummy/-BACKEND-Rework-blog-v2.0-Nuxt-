@@ -1,8 +1,6 @@
 const models = require('../models/index');
 const parceJwt = require('../utils/parceJwt').parseJwt;
 
-// TODO перевірити роботу системи друзів
-
 const addFriend = async (req, res) => {
   try {
     const accesToken = req.headers.authorization.split(' ')[1];

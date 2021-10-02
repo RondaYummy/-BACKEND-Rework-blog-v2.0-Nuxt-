@@ -30,7 +30,7 @@ router.post('/user/:id/posts', auth, controllers.posts.createNewPost);
 
 // // ОТРИМАТИ ВСІ ПОСТИ ЮЗЕРА
 // // /api/:userID/posts/
-router.get('/user/:id/posts/', controllers.posts.getAllPostsAndComments);
+router.get('/user/:id/posts/', controllers.posts.getAllPosts);
 
 // /api/user/post/:id/
 // РЕДАГУВАТИ ПОСТ
@@ -38,7 +38,11 @@ router.put('/user/post/:id', controllers.posts.editPost);
 
 // /api/posts/id/comments
 // ДОДАТИ НОВИЙ КОМЕНТ ДО ПОСТА
-router.post('/posts/:idPost/comments', auth, controllers.commnets.createNewComment);
+router.post('/posts/:postId/comments', auth, controllers.commnets.createNewComment);
+
+// // ОТРИМАТИ ВСІ КОМЕНТИ ДО ПОСТА
+// // /api/posts/:postId/comments/
+router.get('/posts/:postId/comments/', controllers.commnets.getAllComments);
 
 // /api/friends/:id
 // ДОБАВИТИ КОРИСТУВАЧА В ДРУЗІ
