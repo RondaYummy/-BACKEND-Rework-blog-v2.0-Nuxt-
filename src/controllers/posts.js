@@ -28,7 +28,7 @@ const createNewPost = async (req, res) => {
   try {
     const {
       description,
-    } = await req.body;
+    } = req.body;
 
     if (!description) {
       return res.status(400).json({
@@ -81,8 +81,37 @@ const delepePost = async (req, res) => {
   };
 };
 
+// /api/user/post/:id/
+const editPost = async (req, res) => {
+  try {
+
+    const {
+      description,
+    } = req.body;
+    const currentID = req.params.id;
+
+    const currentPostEdit = await models.Posts.findOne({
+      _id: currentID
+    }).exec();
+
+    currentPostEdit.description = description;
+    currentPostEdit.createdAt = Date.now(); // Обновляю дату
+
+    await currentPostEdit.save();
+
+    res.status(201).json({
+      message: 'Пости був відредагований.',
+      data: currentPostEdit,
+    });
+  } catch (e) {
+    res.status(500).json({
+      message: 'Щось пішло не так, попробуйте ще раз.'
+    });
+  };
+};
 module.exports = {
   getAllPostsAndComments,
   createNewPost,
-  delepePost
+  delepePost,
+  editPost,
 };

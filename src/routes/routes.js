@@ -32,6 +32,10 @@ router.post('/user/:id/posts', auth, controllers.posts.createNewPost);
 // // /api/:userID/posts/
 router.get('/user/:id/posts/', controllers.posts.getAllPostsAndComments);
 
+// /api/user/post/:id/
+// РЕДАГУВАТИ ПОСТ
+router.put('/user/post/:id', controllers.posts.editPost);
+
 // /api/posts/id/comments
 // ДОДАТИ НОВИЙ КОМЕНТ ДО ПОСТА
 router.post('/posts/:idPost/comments', auth, controllers.commnets.createNewComment);

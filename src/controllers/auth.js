@@ -117,7 +117,7 @@ const signUp = async (req, res) => {
       phone,
       role,
       TermsOfServiceAndPrivacyPolicy,
-    } = await req.body;
+    } = req.body;
 
     const currentUser = await models.User.findOne({
       email,

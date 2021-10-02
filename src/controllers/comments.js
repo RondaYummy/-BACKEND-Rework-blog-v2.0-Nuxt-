@@ -7,7 +7,7 @@ const createNewComment = async (req, res) => {
       description,
       user,
       whoPosted
-    } = await req.body;
+    } = req.body;
 
     if (!description) {
       return res.status(400).json({

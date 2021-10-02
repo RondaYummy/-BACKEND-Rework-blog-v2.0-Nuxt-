@@ -3,8 +3,7 @@ const models = require('../models/index');
 const disconnect = async (req, res) => {
   const {
     id,
-  } = await req.body;
-  console.log(id);
+  } = req.body;
   await models.UserToken.findOneAndRemove({
     user: id,
   }).exec();
