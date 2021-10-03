@@ -24,6 +24,12 @@ router.get('/user/:id', controllers.usersApi.currentUser);
 // ДОБАВИТИ НОВИЙ ПОСТ
 router.post('/user/:id/posts', auth, controllers.posts.createNewPost);
 
+// ДОБАВИТИ ДО ВИБРАНОГО
+router.post('/user/:id/favorite', auth, controllers.usersApi.addFavorite);
+
+// ВИДАЛИТИ ІЗ  ВИБРАНОГО
+router.delete('/user/:id/favorite', auth, controllers.usersApi.DeleteFromFavorite);
+
 // ОТРИМАТИ ВСІ ПОСТИ ЮЗЕРА
 router.get('/user/:id/posts/', controllers.posts.getAllPosts);
 
