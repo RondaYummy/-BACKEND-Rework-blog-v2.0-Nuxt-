@@ -13,54 +13,45 @@ router.post('/signin', controllers.auth.signIn);
 router.post('/refresh-tokens', controllers.auth.refreshTokens);
 
 // Logout / Disconnect
-// /api/logout
 router.post('/logout', controllers.logout.disconnect);
 
 // Registration
-// /api/registration
 router.post('/registration', controllers.auth.signUp);
 
 // User profile
-// api/user/:id
 router.get('/user/:id', controllers.usersApi.currentUser);
 
-// /api/user/:id/posts
 // ДОБАВИТИ НОВИЙ ПОСТ
 router.post('/user/:id/posts', auth, controllers.posts.createNewPost);
 
-// // ОТРИМАТИ ВСІ ПОСТИ ЮЗЕРА
-// // /api/:userID/posts/
+// ОТРИМАТИ ВСІ ПОСТИ ЮЗЕРА
 router.get('/user/:id/posts/', controllers.posts.getAllPosts);
 
-// /api/user/post/:id/
 // РЕДАГУВАТИ ПОСТ
 router.put('/user/post/:id', controllers.posts.editPost);
 
-// /api/posts/id/comments
 // ДОДАТИ НОВИЙ КОМЕНТ ДО ПОСТА
-router.post('/posts/:postId/comments', auth, controllers.commnets.createNewComment);
+router.post('/posts/:postId/comments', auth, controllers.comments.createNewComment);
 
-// // ОТРИМАТИ ВСІ КОМЕНТИ ДО ПОСТА
-// // /api/posts/:postId/comments/
-router.get('/posts/:postId/comments/', controllers.commnets.getAllComments);
+// ОТРИМАТИ ВСІ КОМЕНТИ ДО ПОСТА
+router.get('/posts/:postId/comments/', controllers.comments.getAllComments);
 
-// /api/friends/:id
+// РЕДАГУВАТИ КОМЕНТ
+router.put('/user/:id/comment', controllers.comments.editComment);
+
 // ДОБАВИТИ КОРИСТУВАЧА В ДРУЗІ
 router.post('/friends/:id', auth, controllers.friends.addFriend);
 
-// /api/friends/id
 // ВИВЕСТИ УСІХ ДРУЗІВ КОРИСТУВАЧА
 router.get('/friends/:id', controllers.friends.getUserFriends);
 
-// Пошук користувачів
-// /api/user/search/:v
+// ПОШУК КОРИСТУВАЧІВ
 router.get('/user/search/:v', controllers.searchUsers.searchUsers);
 
 // ВИДАЛИТИ ПОСТ
-// /api/posts/:id
 router.delete('/posts/:id', controllers.posts.delepePost);
 
 // ВИДАЛИТИ КОМЕНТ
-// /posts/:id/comment
-router.delete('/posts/:id/comment', controllers.commnets.delepeComment);
+router.delete('/posts/:id/comment', controllers.comments.delepeComment);
+
 module.exports = router;

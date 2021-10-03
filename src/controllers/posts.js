@@ -1,6 +1,6 @@
 const models = require('../models/index');
+
 // ОТРИМАТИ ВСІ ПОСТИ ЮЗЕРА
-// /api/:userID/posts/
 const getAllPosts = async (req, res) => {
   try {
     const {
@@ -24,6 +24,7 @@ const getAllPosts = async (req, res) => {
   }
 };
 
+// СТВОРИТИ НОВИЙ ПОСТ
 const createNewPost = async (req, res) => {
   try {
     const {
@@ -61,13 +62,13 @@ const createNewPost = async (req, res) => {
     });
   }
 };
-
+// ВИДАЛИТИ ПОСТ
 const delepePost = async (req, res) => {
   try {
     const {
       id
     } = req.params;
-    
+
     await models.Posts.findOneAndRemove({
       _id: req.params.id
     });
@@ -82,14 +83,14 @@ const delepePost = async (req, res) => {
   };
 };
 
-// /api/user/post/:id/
+// РЕДАГУВАТИ ПОСТ
 const editPost = async (req, res) => {
   try {
 
     const {
       description,
     } = req.body;
-      const currentID = req.params.id;
+    const currentID = req.params.id;
 
     const currentPostEdit = await models.Posts.findOne({
         _id: currentID
