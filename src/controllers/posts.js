@@ -62,6 +62,7 @@ const createNewPost = async (req, res) => {
     });
   }
 };
+
 // ВИДАЛИТИ ПОСТ
 const delepePost = async (req, res) => {
   try {
@@ -70,8 +71,12 @@ const delepePost = async (req, res) => {
     } = req.params;
 
     await models.Posts.findOneAndRemove({
-      _id: req.params.id
+      _id: id
     });
+    await models.Comments.find({
+      postId: id
+    }).remove().exec();
+
     res.status(200).json({
       message: 'Пост був видалений.',
       postID: id,
@@ -102,8 +107,6 @@ const editPost = async (req, res) => {
     currentPostEdit.description = description;
     currentPostEdit.createdAt = Date.now(); // Обновляю дату
     await currentPostEdit.save();
-
-
 
     res.status(201).json({
       message: 'Пости був відредагований.',

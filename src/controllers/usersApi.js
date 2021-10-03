@@ -52,12 +52,10 @@ const addFavorite = async (req, res) => {
     if (userFav.length < 1) {
       currUser.favorites.push(id);
       currUser.save();
-
-      return res.status(200).json({
-        message: 'Користувач був доданий до вибраного.',
-      });
     }
-
+    return res.status(200).json({
+      message: 'Користувач був доданий до вибраного.',
+    });
 
   } catch (e) {
     return res.status(500).json({
@@ -84,16 +82,18 @@ const DeleteFromFavorite = async (req, res) => {
 
   const index = currUser.favorites.indexOf(id);
 
-  if (!index) {
+  if (index < 0) {
     return res.status(404).json({
       message: 'Користувач не у вибраних, ви не можете його видалити.',
     });
   }
+
   currUser.favorites.splice(
     index,
     1
   );
   currUser.save();
+
   return res.status(200).json({
     message: 'Користувач був видалений із вибраного.',
   });

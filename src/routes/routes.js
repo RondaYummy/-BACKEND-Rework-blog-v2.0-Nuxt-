@@ -27,7 +27,7 @@ router.post('/user/:id/posts', auth, controllers.posts.createNewPost);
 // ДОБАВИТИ ДО ВИБРАНОГО
 router.post('/user/:id/favorite', auth, controllers.usersApi.addFavorite);
 
-// ВИДАЛИТИ ІЗ  ВИБРАНОГО
+// ВИДАЛИТИ ІЗ ВИБРАНОГО
 router.delete('/user/:id/favorite', auth, controllers.usersApi.DeleteFromFavorite);
 
 // ОТРИМАТИ ВСІ ПОСТИ ЮЗЕРА
