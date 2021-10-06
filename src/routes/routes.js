@@ -17,7 +17,7 @@ router.post('/logout', controllers.logout.disconnect);
 router.post('/registration', controllers.auth.signUp);
 
 // ОТРИМАТИ НАДІСЛАНІ ЧИ ВХІДНІ ЗАЯВКИ 
-router.get('/user/friend-requests', auth, controllers.friends.applicationsToFriends);
+router.get('/user/friend-requests', controllers.friends.applicationsToFriends);
 
 // User profile
 router.get('/user/:id', controllers.usersApi.currentUser);
@@ -56,7 +56,7 @@ router.post('/user/friends/accept/:id', auth, controllers.friends.acceptsFriend)
 router.post('/user/friends/reject/:id', auth, controllers.friends.rejectFriendRequest);
 
 // ВИДАЛИТИ КОРИСТУВАЧА ІЗ ДРУЗІ
-router.delete('/user/:id/friends', auth, controllers.friends.deleteUserFriend);
+router.delete('/user/friends/:id/remove', auth, controllers.friends.deleteUserFriend);
 
 // ВИВЕСТИ УСІХ ДРУЗІВ КОРИСТУВАЧА
 router.get('/friends/:id', controllers.friends.getUserFriends);

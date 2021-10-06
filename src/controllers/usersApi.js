@@ -22,7 +22,7 @@ const currentUser = async (req, res) => {
   } catch (e) {
     console.log(e);
     return res.status(500).json({
-      message: 'Щось пішло не так, попробуйте ще раз.',
+      message: 'Щось пішло не так, попробуйте ще раз1.',
     });
   }
 };

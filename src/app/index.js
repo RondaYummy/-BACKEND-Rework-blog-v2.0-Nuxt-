@@ -36,7 +36,6 @@ module.exports = (host, port) => new Promise((res, rej) => {
     return res(app);
   });
 
-  
   app.use(expressJWT({
     secret: config.jwt.secret,
     algorithms: ['HS256'],
@@ -66,7 +65,7 @@ module.exports = (host, port) => new Promise((res, rej) => {
     next();
   });
   // TODO працює код вище але чи треба
-  
+
   app.use('/api', routes);
 
   app.use((req, resp, next) => {

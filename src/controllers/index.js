@@ -15,3 +15,4 @@ module.exports = {
   friends,
   searchUsers,
 };
+  
