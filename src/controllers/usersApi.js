@@ -5,6 +5,7 @@ const currentUser = async (req, res) => {
     const {
       id,
     } = req.params;
+
     const user = await models.User.findOne({
       _id: id,
     }).exec();
@@ -19,6 +20,7 @@ const currentUser = async (req, res) => {
       user,
     });
   } catch (e) {
+    console.log(e);
     return res.status(500).json({
       message: 'Щось пішло не так, попробуйте ще раз.',
     });

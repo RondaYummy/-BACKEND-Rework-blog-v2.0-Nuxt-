@@ -17,13 +17,9 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 2 : 0,
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
-    'no-underscore-dangle': ['error', {
-      allow: ['_id'],
-      allowAfterThis: true,
-      allowAfterSuper: false,
-      enforceInMethodNames: true,
-    }],
+    'no-underscore-dangle': 'off',
     'import/no-unresolved': 'off',
+
   },
   globals: {
     Atomics: 'readonly',
