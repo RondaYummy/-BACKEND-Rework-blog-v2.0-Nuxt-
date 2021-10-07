@@ -50,10 +50,7 @@ module.exports = (host, port) => new Promise((res, rej) => {
       return null;
     },
   }).unless({
-    path: ['/api/signin', '/api/registration', '/api/logout', {
-      url: /^\/api\/user\/.*/,
-      methods: ['GET']
-    }, ],
+    path: ['/api/signin', '/api/registration', '/api/logout', ],
   }));
 
   app.use((err, req, resolve, next) => {
@@ -64,7 +61,6 @@ module.exports = (host, port) => new Promise((res, rej) => {
     }
     next();
   });
-  // TODO працює код вище але чи треба
 
   app.use('/api', routes);
 

@@ -16,11 +16,10 @@ module.exports = async (req, res, next) => {
   }
 
   const token = authHeader.replace('Bearer ', '');
-  
+
   if (!req.user) {
-    // TODO помилка userId невідомий якщо користувач не авторизований, коректно?
     res.status(401).json({
-      message: 'Invalid userId!',
+      message: 'Invalid user!',
     });;
   }
 

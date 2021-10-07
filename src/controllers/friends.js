@@ -117,41 +117,40 @@ const rejectFriendRequest = async (req, res) => {
 // отримати надіслані запити у друзі
 const applicationsToFriends = async (req, res) => {
   try {
-
     const {
       query = {}
     } = req;
-
     const _query = pick(query, ['acceptedBy', 'sentBy'])
 
-    const result = await models.RequestFriends
-      .find(_query).exec();
+    const arrayApplicationsToFriends = await models.RequestFriends.find({
+        ..._query,
+        $or: [{
+            sentBy: req.user.userId
+          },
+          {
+            acceptedBy: req.user.userId
+          },
+        ]
+      }).populate('sentBy')
+      .populate('acceptedBy')
+      .exec();
 
-    // const arrayApplicationsToFriends = await models.RequestFriends.find({
-    //   $or: [{
-    //       sentBy: id
-    //     },
-    //     {
-    //       acceptedBy: id
-    //     },
-    //   ]
-    // })
-
-    if (!result) {
+    if (!arrayApplicationsToFriends) {
       return res.status(404).json({
-        message: 'Запитів не знайдено.',
+        message: 'Заявок не знайдено.',
       });
     }
 
     return res.status(201).json({
       message: 'Заявки отримано.',
-      result
+      arrayApplicationsToFriends,
     });
+
   } catch (error) {
     return res.status(500).json({
       message: 'Щось пішло не так.',
     });
-  }
+  };
 };
 
 const getUserFriends = async (req, res) => {
