@@ -40,7 +40,7 @@ const addFriend = async (req, res) => {
     }).exec();
 
     if (sendedCurr) {
-      return res.status(400).json({
+      return res.status(403).json({
         message: 'Звявку уже надіслано.',
       });
     };
@@ -114,6 +114,28 @@ const rejectFriendRequest = async (req, res) => {
   });
 };
 
+const cancelFriendRequest = async (req, res) => {
+  const {
+    id,
+  } = req.params;
+
+  const canceled = await models.RequestFriends.findOne({
+    sentBy: req.user.userId,
+    _id: id
+  }).exec();
+
+  if (!canceled) {
+    return res.status(401).json({
+      message: 'Такої заявки в друзі не знайдено.',
+    });
+  };
+
+  canceled.remove();
+  return res.status(201).json({
+    message: 'Ви відмінили заявку у друзі.',
+  });
+};
+
 // отримати надіслані запити у друзі
 const applicationsToFriends = async (req, res) => {
   try {
@@ -121,11 +143,12 @@ const applicationsToFriends = async (req, res) => {
       query = {}
     } = req;
     const _query = pick(query, ['acceptedBy', 'sentBy'])
+    _query.isAccepted = false;
 
     const arrayApplicationsToFriends = await models.RequestFriends.find({
         ..._query,
         $or: [{
-            sentBy: req.user.userId
+            sentBy: req.user.userId,
           },
           {
             acceptedBy: req.user.userId
@@ -144,6 +167,7 @@ const applicationsToFriends = async (req, res) => {
     return res.status(201).json({
       message: 'Заявки отримано.',
       arrayApplicationsToFriends,
+      requestName: Object.keys(_query)[0],
     });
 
   } catch (error) {
@@ -218,5 +242,6 @@ module.exports = {
   deleteUserFriend,
   acceptsFriend,
   rejectFriendRequest,
+  cancelFriendRequest,
 
 };

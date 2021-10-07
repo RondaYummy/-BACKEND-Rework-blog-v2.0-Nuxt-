@@ -55,6 +55,9 @@ router.post('/user/friends/accept/:id', auth, controllers.friends.acceptsFriend)
 // ВІДХИЛИТИ ЗАПИТ ВІД КОРИСТУВАЧА ( у друзі )
 router.post('/user/friends/reject/:id', auth, controllers.friends.rejectFriendRequest);
 
+// ВІДМІНИТИ ЗАЯВКУ У ДРУЗІ
+router.post('/user/friends/cancel/:id', auth, controllers.friends.cancelFriendRequest);
+
 // ВИДАЛИТИ КОРИСТУВАЧА ІЗ ДРУЗІ
 router.delete('/user/friends/:id/remove', auth, controllers.friends.deleteUserFriend);
 
